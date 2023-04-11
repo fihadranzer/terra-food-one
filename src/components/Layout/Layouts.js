@@ -6,12 +6,10 @@ const Layouts = () => {
   return (
     <div>
       <Header />
-
       <div>
         <Routers />
       </div>
-
-      <Footer/>
+      <Footer />
     </div>
   );
 };
