@@ -14,8 +14,13 @@ import products from "../assets/fake-data/products.js";
 import foodCategoryImg03 from "../assets/images/bread.png";
 import foodCategoryImg01 from "../assets/images/hamburger.png";
 import whyImg from "../assets/images/location.png";
+import networkImg from "../assets/images/network.png";
+
 import foodCategoryImg02 from "../assets/images/pizza.png";
 import ProductCard from "../components/Ui/product-card/ProductCard";
+
+import TestimonialSlider from "../components/Ui/slider/TestimonialSlider";
+
 const featureData = [
   {
     title: "Quick Delivery",
@@ -37,6 +42,7 @@ const featureData = [
 const Home = () => {
   const [category, setCategory] = useState("ALL");
   const [allProducts, setAllProducts] = useState(products);
+  const [hotPizza, setHotPizza] = useState([]);
 
   useEffect(() => {
     if (category === "ALL") {
@@ -66,6 +72,12 @@ const Home = () => {
       setAllProducts(filteredProducts);
     }
   }, [category]);
+
+  useEffect(() => {
+    const filteredPizza = products.filter((item) => (item.category = "Pizza"));
+    const slicePizza = filteredPizza.slice(0, 4);
+    setHotPizza(slicePizza);
+  }, []);
 
   return (
     <Helmet title="Home">
@@ -215,11 +227,13 @@ const Home = () => {
         <Container>
           <Row>
             <Col lg="6" md="6">
-              <img src={whyImg} alt="why-terra-food" className="w-100"/>
+              <img src={whyImg} alt="why-terra-food" className="w-100" />
             </Col>
             <Col lg="6" md="6">
               <div className="why__tasty_treat">
-                <h2 className="tasty__treat-title mb-4">Why <span>Terra Food ?</span>  </h2>
+                <h2 className="tasty__treat-title mb-4">
+                  Why <span>Terra Food ?</span>{" "}
+                </h2>
                 <p className="tasty__treat-desc">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
                   ad vitae facilis quisquam iusto hic in, perspiciatis amet,
@@ -227,36 +241,81 @@ const Home = () => {
                   impedit aut. Ut, voluptatum eos.
                 </p>
                 <ListGroup className="mt-5">
-                  <ListGroupItem className="border-0 ps-0" >
+                  <ListGroupItem className="border-0 ps-0">
                     <p className="choose__us-title d-flex align-items-center gap-2">
                       <i class="ri-checkbox-circle-line"></i> Fresh and Tasty
                       Foods
                     </p>
-                    <p>
+                    <p className="choose__us-desc">
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Exercitationem, ex.
                     </p>
                   </ListGroupItem>
-                  <ListGroupItem className="border-0 ps-0" >
+                  <ListGroupItem className="border-0 ps-0">
                     <p className="choose__us-title d-flex align-items-center gap-2">
                       <i class="ri-checkbox-circle-line"></i> Quality Support
                     </p>
-                    <p>
+                    <p className="choose__us-desc">
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Architecto, ex?
                     </p>
                   </ListGroupItem>
-                  <ListGroupItem className="border-0 ps-0" >
+                  <ListGroupItem className="border-0 ps-0">
                     <p className="choose__us-title d-flex align-items-center gap-2">
-                      <i class="ri-checkbox-circle-line"></i>Order from any location
+                      <i class="ri-checkbox-circle-line"></i>Order from any
+                      location
                     </p>
-                    <p>
+                    <p className="choose__us-desc">
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Architecto, ex?
                     </p>
                   </ListGroupItem>
                 </ListGroup>
               </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+
+      <section className="pt-0">
+        <Container>
+          <Row>
+            <Col lg="12" className="text-center mb-5">
+              <h2>Hot Pizza</h2>
+            </Col>
+
+            {hotPizza.map((item) => (
+              <Col lg="3" md="4" key={item.id}>
+                <ProductCard item={item} />
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
+
+      <section>
+        <Container>
+          <Row>
+            <Col lg="6" md="6">
+              <div className="testimonial ">
+                <h5 className="testimonial__subtitle mb-4">Testimonial</h5>
+                <h2 className="testimonial__title mb-4">
+                  What our <span>customers</span>are saying{" "}
+                </h2>
+                <p className="testimonial__desc">
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  Aliquid ab ducimus amet eos. Laboriosam ratione expedita
+                  placeat nemo deleniti repellendus.
+                </p>
+                <TestimonialSlider/>
+              </div>
+            </Col>
+            <Col lg="6" md="6">
+              <img
+                src={networkImg}
+                alt="testimonial-network"
+                className="w-100"
+              />
             </Col>
           </Row>
         </Container>
